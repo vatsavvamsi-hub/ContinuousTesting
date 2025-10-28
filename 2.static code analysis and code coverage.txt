@@ -1,0 +1,32 @@
+where do static code analysis and code coverage happen in a cicd pipeline ?
+
+Static code analysis and code coverage typically happen at these stages in a CI/CD pipeline:
+
+## Static Code Analysis
+- **Early in CI pipeline** - Usually runs immediately after code checkout and dependency installation
+- **Before building/compiling** - Catches issues before resources are spent on builds
+- **On pull requests** - Provides feedback to developers before code is merged
+- **Common placement**: After linting but before tests
+
+## Code Coverage
+- **During test execution** - Coverage data is collected while unit/integration tests run
+- **After all tests complete** - Coverage reports are generated and analyzed
+- **Before deployment stages** - Used as a quality gate to prevent deployments if coverage is too low
+
+## Typical Pipeline Order
+1. Checkout code
+2. Install dependencies  
+3. **Static analysis** (linting, security scans, complexity analysis)
+4. Build/compile
+5. **Run tests with coverage collection**
+6. **Generate coverage reports**
+7. Quality gates (fail if coverage/analysis thresholds not met)
+8. Deploy to staging/production
+
+## Best Practices
+- **Fail fast**: Run static analysis early to catch issues quickly
+- **Parallel execution**: Run static analysis and tests in parallel when possible
+- **Quality gates**: Use coverage/analysis results to block deployments
+- **Caching**: Cache analysis results to speed up subsequent runs
+
+Both help maintain code quality but serve different purposes - static analysis catches potential issues without execution, while coverage ensures your tests adequately exercise your code.

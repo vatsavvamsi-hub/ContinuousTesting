@@ -1,0 +1,17 @@
+SAST (Static Application Security Testing)
+•  Analyzes source code, bytecode, or binaries without executing the application
+•  Tests from the "inside out" - examines the code structure itself
+•  Runs early in development (during coding/build phase)
+•  Finds vulnerabilities like SQL injection, buffer overflows, hardcoded credentials in the code
+•  Pros: Catches issues early, pinpoints exact code locations
+•  Cons: Can't detect runtime or configuration issues, may have false positives
+
+DAST (Dynamic Application Security Testing)
+•  Tests the running application by simulating attacks from the outside
+•  Tests from the "outside in" - treats app as a black box
+•  Runs later in development (during testing/pre-production)
+•  Finds vulnerabilities like authentication flaws, server misconfigurations, session management issues
+•  Pros: Tests real-world attack scenarios, no false positives from actual exploits
+•  Cons: Slower, doesn't show exact code locations, requires deployed app
+
+Key difference: SAST examines the code itself; DAST attacks the running application.

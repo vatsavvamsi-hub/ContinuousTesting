@@ -1,0 +1,85 @@
+Jenkins integrates with SonarQube to provide continuous code quality analysis through the following workflow:
+
+Integration Architecture
+
+Jenkins acts as the CI/CD orchestrator, while SonarQube performs the static analysis. They communicate through:
+•  SonarQube Scanner (plugin/tool)
+•  SonarQube Server API
+•  Quality Gates webhooks
+
+Workflow Steps
+
+1. Code Analysis Trigger
+◦  Jenkins job triggered by code commits/PRs
+◦  Jenkins pulls latest code from repository
+
+2. Static Code Analysis
+◦  Jenkins executes SonarQube Scanner
+◦  Scanner analyzes code for bugs, vulnerabilities, code smells
+◦  Results sent to SonarQube Server
+
+3. Code Coverage Integration
+◦  Test execution generates coverage reports (JaCoCo, Cobertura, etc.)
+◦  Scanner picks up coverage data and sends to SonarQube
+◦  SonarQube calculates coverage metrics
+
+4. Quality Gates Evaluation
+◦  SonarQube evaluates metrics against predefined thresholds
+◦  Quality Gate status: PASSED/FAILED
+◦  Results available via API or webhook
+
+5. Pipeline Decision
+◦  Jenkins retrieves Quality Gate status
+◦  Pipeline continues (PASSED) or fails (FAILED)
+◦  Notifications sent to development team
+
+Key Components
+
+•  SonarQube Scanner: Analyzes code and sends results
+•  Quality Gates: Configurable rules defining acceptable quality levels
+•  SonarQube Server: Stores analysis results and manages quality gates
+•  Jenkins SonarQube Plugin: Facilitates integration between tools
+
+This ensures code quality standards are enforced before deployment, maintaining consistent code health across the development lifecycle.
+
+---
+
+ommon predefined threshold examples for SonarQube Quality Gates:
+
+Code Coverage Thresholds
+•  Overall Coverage: ≥ 80%
+•  New Code Coverage: ≥ 80%
+•  Line Coverage: ≥ 75%
+•  Branch Coverage: ≥ 70%
+
+Bug & Vulnerability Thresholds
+•  Bugs: = 0 (no new bugs allowed)
+•  Vulnerabilities: = 0 (no new vulnerabilities)
+•  Security Hotspots Reviewed: ≥ 100%
+•  Critical/Blocker Issues: = 0
+
+Code Smell Thresholds
+•  Code Smells: ≤ 5 new code smells
+•  Technical Debt Ratio: ≤ 5%
+•  Maintainability Rating: A or B
+•  Reliability Rating: A
+
+Duplication Thresholds
+•  Duplicated Lines: ≤ 3%
+•  Duplicated Blocks: ≤ 10
+
+Complexity Thresholds
+•  Cyclomatic Complexity: ≤ 15 per method
+•  Cognitive Complexity: ≤ 15 per method
+
+---
+
+Example Quality Gate Configuration
+
+Condition: Coverage on New Code ≥ 80%
+Condition: Duplicated Lines on New Code ≤ 3%
+Condition: Maintainability Rating on New Code = A
+Condition: Reliability Rating on New Code = A
+Condition: Security Rating on New Code = A
+Condition: Bugs on New Code = 0
+Condition: Vulnerabilities on New Code = 0
